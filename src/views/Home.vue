@@ -7,6 +7,7 @@
     .title(v-else)
       button(@click='updateTitle') Update Title
       h2 {{ title }}
+    .list-container
 </template>
 
 <script lang="ts">
