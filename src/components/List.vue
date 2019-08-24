@@ -1,23 +1,15 @@
 <template lang="pug">
   .list-container
-    h2 {{ header }}
-    p.total Total {{ header }}: *total*
+    h2 *name*
     ol
-      li(v-for='item in list')
-        p {{ item }}
-        i.fad.fa-minus-circle
+      li list
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 
 @Component({})
-export default class List extends Vue {
-  @Prop(String) readonly header!: string
-  @Prop({ default: [] }) readonly list!: []
-
-  showTrash: boolean = false
-}
+export default class List extends Vue {}
 </script>
 
 <style lang="scss" scoped>

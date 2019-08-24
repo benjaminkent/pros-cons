@@ -1,27 +1,26 @@
 <template lang="pug">
   .home-container
-    h1 Pros and Cons
-    form.title-container(v-if='!title' @submit='submitTitle')
-      input(v-model='enteredTitle' type='text' placeholder='Enter title for list')
+    h1 Compare!
+    form.title-container(@submit.prevent='submitCompares')
+      input(v-model='firstCompare' type='text' placeholder='Enter first thing to compare')
+      input(v-model='secondCompare' type='text' placeholder='Enter second thing to compare')
       button(type='submit') Enter
-    .update-title(v-else)
-      button(@click='updateTitle') Update Title
+    .update-title
+      button Update Title
     .add-container
-      form
+      .add-form
         label Add Item
-        input(v-model='addedItem' type='text' placeholder='Add Pro or Con')
+        input(type='text' placeholder='Add Pro or Con')
         .add-buttons
-          button(type='submit')
+          button
             i.fad.fa-plus-circle
-            | Pro
-          button(type='submit')
+            | *name*
+          button
             i.fad.fa-plus-circle
-            | Con
-    .title
-      h2 {{ title }}
+            | *name*
     .lists-container
-      List(:header='proHeader' :list='proList')
-      List(:header='conHeader' :list='conList')
+      List
+      List
 </template>
 
 <script lang="ts">
@@ -34,22 +33,8 @@ import List from '@/components/List.vue'
   },
 })
 export default class Home extends Vue {
-  title: string = ''
-  enteredTitle: string = ''
-  proHeader: string = 'Pros'
-  conHeader: string = 'Cons'
-  proList: string[] = ['pro1', 'pro2', 'pro3']
-  conList: string[] = ['con1', 'con2', 'con3']
-  addedItem: string = ''
-
-  submitTitle() {
-    this.title = this.enteredTitle
-  }
-
-  updateTitle() {
-    this.title = ''
-    this.enteredTitle = ''
-  }
+  firstCompare: string = ''
+  secondCompare: string = ''
 }
 </script>
 
@@ -69,6 +54,7 @@ export default class Home extends Vue {
 }
 input {
   width: 100%;
+  margin: 10px 0;
   background-color: #eee;
   border: none;
   text-indent: 10px;
@@ -80,7 +66,6 @@ input {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  min-height: 100px;
   min-width: 310px;
   h2 {
     margin: 0;
@@ -116,7 +101,7 @@ button:hover {
 .add-container {
   margin-top: 30px;
   min-width: 310px;
-  form {
+  .add-form {
     width: 100%;
     display: flex;
     flex-direction: column;
