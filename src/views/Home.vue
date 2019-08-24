@@ -8,8 +8,8 @@
       button(@click='updateTitle') Update Title
       h2 {{ title }}
     .lists-container
-      List
-      List
+      List(:header='proHeader' :list='proList')
+      List(:header='conHeader' :list='conList')
 </template>
 
 <script lang="ts">
@@ -24,6 +24,10 @@ import List from '@/components/List.vue'
 export default class Home extends Vue {
   title: string = ''
   enteredTitle: string = ''
+  proHeader: string = 'Pros'
+  conHeader: string = 'Cons'
+  proList: string[] = ['pro1', 'pro2', 'pro3']
+  conList: string[] = ['con1', 'con2', 'con3']
 
   submitTitle() {
     this.title = this.enteredTitle

@@ -1,29 +1,23 @@
 <template lang="pug">
   .list-container
-    .title-container
-      h2 *Title*
-      i.fad.fa-plus-circle
-    p.total Total *title*: *total*
+    h2 {{ header }}
+    p.total Total {{ header }}: *total*
     ol
-      li
-        p thing
-        i.fad.fa-minus-circle
-      li
-        p thing
-        i.fad.fa-minus-circle
-      li
-        p thing
-        i.fad.fa-minus-circle
-      li
-        p thing
+      li(v-for='item in list')
+        p {{ item }}
         i.fad.fa-minus-circle
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 
 @Component({})
-export default class List extends Vue {}
+export default class List extends Vue {
+  @Prop(String) readonly header!: string
+  @Prop({ default: [] }) readonly list!: []
+
+  showTrash: boolean = false
+}
 </script>
 
 <style lang="scss" scoped>
@@ -36,13 +30,6 @@ h2 {
 .total {
   margin: 0;
   font-weight: bold;
-}
-.title-container {
-  display: flex;
-  justify-content: space-between;
-  i {
-    margin: 7px 10px 0 0;
-  }
 }
 ol {
   padding-left: 0;
@@ -58,13 +45,17 @@ ol {
       margin-right: 10px;
     }
   }
+  li:hover i {
+    visibility: visible;
+  }
 }
 i {
   cursor: pointer;
+  visibility: hidden;
 }
-.fa-plus-circle {
-  color: #11c639;
-}
+// .fa-plus-circle {
+//   color: #11c639;
+// }
 .fa-minus-circle {
   color: #ff2e23;
 }
