@@ -7,13 +7,20 @@
     .title(v-else)
       button(@click='updateTitle') Update Title
       h2 {{ title }}
-    .list-container
+    .lists-container
+      List
+      List
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import List from '@/components/List.vue'
 
-@Component({})
+@Component({
+  components: {
+    List,
+  },
+})
 export default class Home extends Vue {
   title: string = ''
   enteredTitle: string = ''
@@ -64,12 +71,22 @@ export default class Home extends Vue {
 }
 button {
   width: 100%;
-  border: 1px solid #b200ff;
+  border: 1px solid #034078;
   padding: 10px 0;
-  background-color: #b200ff;
+  background-color: #034078;
   color: #fff;
   font-size: 14px;
   border-radius: 30px;
   cursor: pointer;
+}
+button:hover {
+  background-color: #222;
+}
+.lists-container {
+  width: 80%;
+  margin-top: 75px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 </style>
