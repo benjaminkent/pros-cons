@@ -4,8 +4,20 @@
     form.title-container(v-if='!title' @submit='submitTitle')
       input(v-model='enteredTitle' type='text' placeholder='Enter title for list')
       button(type='submit') Enter
-    .title(v-else)
+    .update-title(v-else)
       button(@click='updateTitle') Update Title
+    .add-container
+      form
+        label Add Item
+        input(v-model='addedItem' type='text' placeholder='Add Pro or Con')
+        .add-buttons
+          button(type='submit')
+            i.fad.fa-plus-circle
+            | Pro
+          button(type='submit')
+            i.fad.fa-plus-circle
+            | Con
+    .title
       h2 {{ title }}
     .lists-container
       List(:header='proHeader' :list='proList')
@@ -28,6 +40,7 @@ export default class Home extends Vue {
   conHeader: string = 'Cons'
   proList: string[] = ['pro1', 'pro2', 'pro3']
   conList: string[] = ['con1', 'con2', 'con3']
+  addedItem: string = ''
 
   submitTitle() {
     this.title = this.enteredTitle
@@ -53,22 +66,30 @@ export default class Home extends Vue {
   justify-content: space-between;
   min-height: 100px;
   min-width: 310px;
-  input {
-    width: 100%;
-    background-color: #eee;
-    border: none;
-    text-indent: 10px;
-    padding: 10px 0;
-    font-size: 14px;
-  }
 }
-.title {
+input {
+  width: 100%;
+  background-color: #eee;
+  border: none;
+  text-indent: 10px;
+  padding: 10px 0;
+  font-size: 14px;
+}
+.update-title {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   min-height: 100px;
   min-width: 310px;
+  h2 {
+    margin: 0;
+  }
+}
+.title {
+  margin-top: 30px;
+  min-height: 40px;
+  margin-bottom: 20px;
   h2 {
     margin: 0;
   }
@@ -88,9 +109,34 @@ button:hover {
 }
 .lists-container {
   width: 80%;
-  margin-top: 75px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+}
+.add-container {
+  margin-top: 30px;
+  min-width: 310px;
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .add-buttons {
+    display: flex;
+    margin-top: 20px;
+    i {
+      margin-right: 7px;
+    }
+    button:first-child {
+      margin-right: 10px;
+      background-color: green;
+      border: 1px solid green;
+    }
+    button:last-child {
+      margin-left: 10px;
+      background-color: red;
+      border: 1px solid red;
+    }
+  }
 }
 </style>
