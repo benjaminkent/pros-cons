@@ -1,26 +1,26 @@
 <template lang="pug">
   .home-container
     h1 Compare!
-    form.title-container(@submit.prevent='submitCompares')
-      input(v-model='firstCompare' type='text' placeholder='Enter first thing to compare')
-      input(v-model='secondCompare' type='text' placeholder='Enter second thing to compare')
+    form.title-container(v-if='showCompareInput' @submit.prevent='submitCompares')
+      input(v-model='firstCompareValue' type='text' placeholder='Enter first thing to compare')
+      input(v-model='secondCompareValue' type='text' placeholder='Enter second thing to compare')
       button(type='submit') Enter
-    .update-title
-      button Update Title
+    .update-title(v-else)
+      button(@click='updateCompares') Update Compares
     .add-container
       .add-form
         label Add Item
-        input(type='text' placeholder='Add Pro or Con')
+        input(v-model='compareItem' type='text' placeholder='Add item to compare')
         .add-buttons
-          button
+          button(@click='addFirst')
             i.fad.fa-plus-circle
-            | *name*
-          button
+            | {{ compares.first }}
+          button(@click='addSecond')
             i.fad.fa-plus-circle
-            | *name*
+            | {{ compares.second }}
     .lists-container
-      List
-      List
+      List(:header='compares.first' :list='firstList')
+      List(:header='compares.second' :list='secondList')
 </template>
 
 <script lang="ts">
@@ -33,8 +33,39 @@ import List from '@/components/List.vue'
   },
 })
 export default class Home extends Vue {
-  firstCompare: string = ''
-  secondCompare: string = ''
+  firstCompareValue: string = ''
+  secondCompareValue: string = ''
+  compares: { first: string; second: string } = {
+    first: '',
+    second: '',
+  }
+  compareItem: string = ''
+  showCompareInput: boolean = true
+  firstList: string[] = []
+  secondList: string[] = []
+
+  submitCompares() {
+    this.compares = {
+      first: this.firstCompareValue,
+      second: this.secondCompareValue,
+    }
+    this.firstCompareValue = ''
+    this.secondCompareValue = ''
+    this.showCompareInput = false
+  }
+  updateCompares() {
+    this.showCompareInput = true
+    this.firstCompareValue = ''
+    this.secondCompareValue = ''
+  }
+  addFirst() {
+    this.firstList.push(this.compareItem)
+    this.compareItem = ''
+  }
+  addSecond() {
+    this.secondList.push(this.compareItem)
+    this.compareItem = ''
+  }
 }
 </script>
 
@@ -96,7 +127,8 @@ button:hover {
   width: 80%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
+  margin-top: 30px;
 }
 .add-container {
   margin-top: 30px;
@@ -112,15 +144,19 @@ button:hover {
     i {
       margin-right: 7px;
     }
-    button:first-child {
-      margin-right: 10px;
+    button {
       background-color: green;
       border: 1px solid green;
     }
+    button:hover {
+      background-color: #222;
+      border: 1px solid #222;
+    }
+    button:first-child {
+      margin-right: 10px;
+    }
     button:last-child {
       margin-left: 10px;
-      background-color: red;
-      border: 1px solid red;
     }
   }
 }
