@@ -7,6 +7,7 @@
         :item='item'
         :removeItem='removeItem'
         :index='index'
+        :key='index'
         )
 </template>
 
