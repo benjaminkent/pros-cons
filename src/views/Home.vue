@@ -45,6 +45,9 @@ export default class Home extends Vue {
   secondList: string[] = []
 
   submitCompares() {
+    if (!this.firstCompareValue || !this.secondCompareValue) {
+      return
+    }
     this.compares = {
       first: this.firstCompareValue,
       second: this.secondCompareValue,
@@ -55,14 +58,22 @@ export default class Home extends Vue {
   }
   updateCompares() {
     this.showCompareInput = true
-    this.firstCompareValue = ''
-    this.secondCompareValue = ''
+    this.compares = {
+      first: '',
+      second: '',
+    }
   }
   addFirst() {
+    if (!this.compareItem) {
+      return
+    }
     this.firstList.push(this.compareItem)
     this.compareItem = ''
   }
   addSecond() {
+    if (!this.compareItem) {
+      return
+    }
     this.secondList.push(this.compareItem)
     this.compareItem = ''
   }
