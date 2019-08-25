@@ -112,9 +112,9 @@ input {
 }
 button {
   width: 100%;
-  border: 1px solid #034078;
+  border: 1px solid #008bf8;
   padding: 10px 0;
-  background-color: #034078;
+  background-color: #008bf8;
   color: #fff;
   font-size: 14px;
   border-radius: 30px;
@@ -143,14 +143,15 @@ button:hover {
     margin-top: 20px;
     i {
       margin-right: 7px;
+      color: #8cea00;
     }
     button {
-      background-color: green;
-      border: 1px solid green;
+      background-color: #182825;
+      border: 1px solid #182825;
     }
     button:hover {
-      background-color: #222;
-      border: 1px solid #222;
+      background-color: #04e762;
+      border: 1px solid #04e762;
     }
     button:first-child {
       margin-right: 10px;
@@ -158,6 +159,12 @@ button:hover {
     button:last-child {
       margin-left: 10px;
     }
+  }
+}
+
+@media (max-width: 850px) {
+  .lists-container {
+    width: 100%;
   }
 }
 </style>

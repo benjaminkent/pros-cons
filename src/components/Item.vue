@@ -17,7 +17,7 @@ export default class Item extends Vue {
 
 <style lang="scss" scoped>
 .green {
-  background-color: greenyellow;
+  background-color: #8cea00;
 }
 li {
   padding: 5px 5px;
