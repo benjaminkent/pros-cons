@@ -1,8 +1,8 @@
 <template lang="pug">
   .item-container
-    li(@click='winner = !winner' :class='{ green: winner }')
-      p {{ item }}
-      p(v-if='winner') Winning!
+    li
+      p.item(@click='winner = !winner' :class='{ green: winner }') {{ item }}
+      p.remove(@click='removeItem(index)') X
 </template>
 
 <script lang="ts">
@@ -11,6 +11,8 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 @Component({})
 export default class Item extends Vue {
   @Prop(String) readonly item!: string
+  @Prop(Function) readonly removeItem!: () => void
+  @Prop(Number) readonly index!: number
   winner: boolean = false
 }
 </script>
@@ -27,6 +29,19 @@ li {
   border-radius: 3px;
   p {
     margin: 0;
+    padding: 7px 0 7px 5px;
+    border-radius: 3px;
   }
+}
+.item {
+  width: 90%;
+}
+.remove {
+  width: 10%;
+  display: flex;
+  justify-content: center;
+}
+.remove:hover {
+  background-color: red;
 }
 </style>

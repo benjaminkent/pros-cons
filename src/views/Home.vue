@@ -19,8 +19,8 @@
             i.fad.fa-plus-circle
             | {{ compares.second }}
     .lists-container
-      List(:header='compares.first' :list='firstList')
-      List(:header='compares.second' :list='secondList')
+      List(:header='compares.first' :list='firstList' :removeItem='removeItemFromFirst')
+      List(:header='compares.second' :list='secondList' :removeItem='removeItemFromSecond')
 </template>
 
 <script lang="ts">
@@ -76,6 +76,12 @@ export default class Home extends Vue {
     }
     this.secondList.push(this.compareItem)
     this.compareItem = ''
+  }
+  removeItemFromFirst(index: number) {
+    this.firstList.splice(index, 1)
+  }
+  removeItemFromSecond(index: number) {
+    this.secondList.splice(index, 1)
   }
 }
 </script>

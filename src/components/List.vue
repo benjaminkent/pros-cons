@@ -2,7 +2,12 @@
   .list-container
     h2 {{ header }}
     ol
-      Item(v-for='item in list' :item='item')
+      Item(
+        v-for='(item, index) in list'
+        :item='item'
+        :removeItem='removeItem'
+        :index='index'
+        )
 </template>
 
 <script lang="ts">
@@ -17,6 +22,7 @@ import Item from '@/components/Item.vue'
 export default class List extends Vue {
   @Prop(String) readonly header!: string
   @Prop({ default: [] }) readonly list!: string[]
+  @Prop(Function) readonly removeItem!: () => void
 
   isGreen: boolean = false
 }
