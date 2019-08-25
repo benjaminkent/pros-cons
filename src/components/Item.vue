@@ -1,7 +1,11 @@
 <template lang="pug">
   .item-container
     li
-      p.item(@click='winner = !winner' :class='{ green: winner }') {{ item }}
+      p.item(
+        @click='winner = !winner'
+        @contextmenu.prevent='tied = !tied'
+        :class='{ green: winner, yellow: tied }'
+      ) {{ item }}
       p.remove(@click='removeItem(index)') X
 </template>
 
@@ -14,6 +18,7 @@ export default class Item extends Vue {
   @Prop(Function) readonly removeItem!: () => void
   @Prop(Number) readonly index!: number
   winner: boolean = false
+  tied: boolean = false
 }
 </script>
 
@@ -21,8 +26,11 @@ export default class Item extends Vue {
 .green {
   background-color: #8cea00;
 }
+.yellow {
+  background-color: #ffd91e;
+}
 li {
-  padding: 5px 5px;
+  padding: 5px;
   display: flex;
   justify-content: space-between;
   cursor: pointer;

@@ -7,17 +7,19 @@
       button(type='submit') Enter
     .update-title(v-else)
       button(@click='updateCompares') Update Compares
-    .add-container
+    .add-container(v-if='compares.first')
       .add-form
-        label Add Item
-        input(v-model='compareItem' type='text' placeholder='Add item to compare')
-        .add-buttons
-          button(@click='addFirst')
-            i.fad.fa-plus-circle
-            | {{ compares.first }}
-          button(@click='addSecond')
-            i.fad.fa-plus-circle
-            | {{ compares.second }}
+        form(@submit.prevent='addItems')
+          .input-group
+            label Item for {{ compares.first }}
+            input(v-model='firstCompareItem' type='text')
+          .input-group
+            label Item for {{ compares.second }}
+            input(v-model='secondCompareItem' type='text')
+          .add-buttons
+            button(type='submit')
+              i.fad.fa-plus-circle
+              | Add items to compare
     .lists-container
       List(:header='compares.first' :list='firstList' :removeItem='removeItemFromFirst')
       List(:header='compares.second' :list='secondList' :removeItem='removeItemFromSecond')
@@ -39,7 +41,8 @@ export default class Home extends Vue {
     first: '',
     second: '',
   }
-  compareItem: string = ''
+  firstCompareItem: string = ''
+  secondCompareItem: string = ''
   showCompareInput: boolean = true
   firstList: string[] = []
   secondList: string[] = []
@@ -63,19 +66,14 @@ export default class Home extends Vue {
       second: '',
     }
   }
-  addFirst() {
-    if (!this.compareItem) {
+  addItems() {
+    if (!this.firstCompareItem || !this.secondCompareItem) {
       return
     }
-    this.firstList.push(this.compareItem)
-    this.compareItem = ''
-  }
-  addSecond() {
-    if (!this.compareItem) {
-      return
-    }
-    this.secondList.push(this.compareItem)
-    this.compareItem = ''
+    this.firstList.push(this.firstCompareItem)
+    this.secondList.push(this.secondCompareItem)
+    this.firstCompareItem = ''
+    this.secondCompareItem = ''
   }
   removeItemFromFirst(index: number) {
     this.firstList.splice(index, 1)
@@ -146,6 +144,7 @@ button:hover {
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 30px;
+  margin-bottom: 100px;
 }
 .add-container {
   margin-top: 30px;
